@@ -22,3 +22,8 @@ void ASCHUD::PostInitializeComponents()
 		GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(InGameHUD.ToSharedRef()));
 	}
 }
+
+TSharedPtr<class SSCGameHUD> ASCHUD::GetGameHUD()
+{
+	return InGameHUD;
+}

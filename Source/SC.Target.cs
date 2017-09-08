@@ -9,6 +9,6 @@ public class SCTarget : TargetRules
 	{
 		Type = TargetType.Game;
 
-		ExtraModuleNames.AddRange( new string[] { "SC" } );
+		ExtraModuleNames.AddRange( new string[] { "SC", "SCLoadingScreen" } );
 	}
 }

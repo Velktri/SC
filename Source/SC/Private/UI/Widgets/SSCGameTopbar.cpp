@@ -2,6 +2,7 @@
 
 #include "SSCGameTopbar.h"
 #include "SlateOptMacros.h"
+#include "Engine.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SSCGameTopbar::Construct(const FArguments& InArgs)
@@ -52,6 +53,7 @@ void SSCGameTopbar::Construct(const FArguments& InArgs)
 				.VAlign(VAlign_Center)
 				.ButtonColorAndOpacity(FLinearColor::Blue)
 				.OnClicked(this, &SSCGameTopbar::StartMenu)
+				//.OnReleased();
 				[
 					SNew(STextBlock)
 					.Text(FText::FromString("Menu 3"))
@@ -88,5 +90,6 @@ END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 FReply SSCGameTopbar::StartMenu()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Start Menu Button Pressed."));
-	return FReply::Handled();
+	FSlateApplication::Get().SetUserFocusToGameViewport(0);// .SetFocusToGameViewport();
+	return FReply::Handled();/*.CaptureMouse(GEngine->GameViewport->GetWindow().ToSharedRef())*/;
 }

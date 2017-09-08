@@ -9,6 +9,6 @@ public class SCEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 
-		ExtraModuleNames.AddRange( new string[] { "SC" } );
+		ExtraModuleNames.AddRange( new string[] { "SC", "SCLoadingScreen" } );
 	}
 }

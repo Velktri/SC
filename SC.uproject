@@ -13,6 +13,11 @@
 				"Slate",
 				"SlateCore"
 			]
+		},
+		{
+			"Name": "SCLoadingScreen",
+			"Type": "Runtime",
+			"LoadingPhase": "PreLoadingScreen"
 		}
 	],
 	"Plugins": [

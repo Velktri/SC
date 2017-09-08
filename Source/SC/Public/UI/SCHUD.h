@@ -23,4 +23,7 @@ class SC_API ASCHUD : public AHUD
 	// Reference to the Main Menu Slate UI.
 	TSharedPtr<class SSCGameHUD> InGameHUD;
 
+public:
+	TSharedPtr<class SSCGameHUD> GetGameHUD();
+
 };
