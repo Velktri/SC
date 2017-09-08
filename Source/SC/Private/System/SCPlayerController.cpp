@@ -3,8 +3,6 @@
 #include "SCPlayerController.h"
 #include "RTS_PlayerView.h"
 
-
-
 ASCPlayerController::ASCPlayerController() 
 {
 	bShowMouseCursor = true;
@@ -29,10 +27,7 @@ class AGameBoundsVolume* ASCPlayerController::GetGameBounds()
 
 void ASCPlayerController::SetRace(ERace InRace) 
 {
-	if (PlayerRace == ERace::None)
-	{
-		PlayerRace = InRace;
-	}
+	PlayerRace = InRace;
 }
 
 ERace ASCPlayerController::GetRace() 
@@ -44,4 +39,9 @@ void ASCPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	SetRace(ERace::Human);
+
+	FInputModeGameAndUI inputType;
+	inputType.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
+	inputType.SetHideCursorDuringCapture(false);
+	SetInputMode(inputType);
 }

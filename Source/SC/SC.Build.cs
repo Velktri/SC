@@ -7,13 +7,32 @@ public class SC : ModuleRules
 	public SC(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "RTSCamera" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "RTSCamera" });
+        PrivateIncludePaths.AddRange(
+            new string[] {
+                "SC/Private/UI/Widgets",
+            }
+        );
 
-        // Uncomment if you are using Slate UI
-        // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+        PublicDependencyModuleNames.AddRange(
+            new string[] {
+                "Core",
+                "CoreUObject",
+                "Engine",
+                "InputCore",
+                "RTSCamera",
+                "Slate",
+                "SlateCore"
+            }
+        );
+
+		PrivateDependencyModuleNames.AddRange(
+            new string[] {
+                "RTSCamera",
+                "Slate",
+                "SlateCore"
+            }
+        );
 
         // Uncomment if you are using online features
         // PrivateDependencyModuleNames.Add("OnlineSubsystem");
