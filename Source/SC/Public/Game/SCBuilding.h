@@ -22,9 +22,21 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	UFUNCTION()
+	class ASCPlayerController* GetOwningController();
 
 	UFUNCTION()
-	void SetPlayerController(class ASCPlayerController* PC);
+	void SetPlayerState(class ASCPlayerState* InPlayerState);
+
+	UFUNCTION()
+	void SetPlayerController(class ASCPlayerController* InPlayerController);
+
+	void SetOwnerColor();
+
+	/** PlayerState Replication Notification Callback */
+	UFUNCTION()
+	virtual void OnRep_PlayerState();
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Component")
@@ -33,21 +45,24 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Component")
 	UStaticMeshComponent* Mesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Resourses")
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "SC | Resourses")
 	int32 Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Resourses")
 	int32 Cost;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Materials")
+	UMaterialInstanceDynamic* TeamColorMID;
+
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Component")
 	//TArray<TSubclassOf<class ASCUnit>> BuildableUnits;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components | Materials")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Materials")
 	class UTexture* SelectionPortrait;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | System")
-	class ASCPlayerController* OwningPlayerController;
 
-	UFUNCTION()
-	class ASCPlayerController* GetOwningController();
+	UPROPERTY(replicatedUsing=OnRep_PlayerState, EditAnywhere, BlueprintReadWrite, Category = "SC | Component")
+	ASCPlayerState* OwningPlayerState;
+
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "SC | Component")
+	ASCPlayerController* OwningPlayerController;
 };

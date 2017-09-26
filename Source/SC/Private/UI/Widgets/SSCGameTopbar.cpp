@@ -90,6 +90,6 @@ END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 FReply SSCGameTopbar::StartMenu()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Start Menu Button Pressed."));
-	FSlateApplication::Get().SetUserFocusToGameViewport(0);// .SetFocusToGameViewport();
+	FSlateApplication::Get().SetUserFocusToGameViewport(1);// .SetFocusToGameViewport();
 	return FReply::Handled();/*.CaptureMouse(GEngine->GameViewport->GetWindow().ToSharedRef())*/;
 }

@@ -27,18 +27,33 @@ public:
 	UFUNCTION(Category = "SC | Bounds")
 	class AGameBoundsVolume* GetGameBounds();
 
-	UFUNCTION(Category = "SC | Race")
-	void SetRace(ERace InRace);
+	UFUNCTION()
+	bool IsClicked();
 
-	UFUNCTION(Category = "SC | Race")
-	ERace GetRace();
+	UFUNCTION()
+	FVector2D GetClickAnchor();
+
+	UFUNCTION()
+	void FilterSelection(TArray<AActor*> UnfilteredActors);
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | Bounds")
 	class AGameBoundsVolume* GameBounds;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | Race")
-	ERace PlayerRace;
+	/** List of Current Selection */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Selection")
+	TArray<AActor*> CurrentSelection;
+
 
 	virtual void BeginPlay() override;
+	virtual void SetupInputComponent() override;
+
+	void StartBoxSelection();
+	void StopBoxSelection();
+	void RightClick();
+
+private:
+	FVector2D ClickedMousePosition;
+	bool bIsClicked;
+	bool ClickedUI();
 };

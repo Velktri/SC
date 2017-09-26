@@ -81,42 +81,38 @@ void APlayerView::BeginPlay()
 void APlayerView::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	FVector2D viewportSize = FVector2D::ZeroVector;
-	UGameViewportClient* gameViewport = GEngine->GameViewport;
-
-	//Make sure viewport exists
-	check(gameViewport);
-	gameViewport->GetViewportSize(viewportSize);
-
-	//Make sure the viewport has focus(contains the mouse)
-	FVector2D MousePosition = FVector2D::ZeroVector;
-	if (gameViewport->IsFocused(gameViewport->Viewport) && gameViewport->GetMousePosition(MousePosition))
+	
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (PC && PC->GetLocalPlayer() && PC->GetLocalPlayer()->ViewportClient)
 	{
-		FVector Direction = FVector::ZeroVector;
-		//Check if the mouse is at the left or right edge of the screen and move accordingly
-		if (bCanScroll(MousePosition.X))
-		{
-			Direction += (Transform_Y * -1.0f);
-		} 
-		else if (bCanScroll(viewportSize.X - MousePosition.X))
-		{
-			Direction += (Transform_Y);
-		}
+		FVector2D viewportSize = FVector2D::ZeroVector;
+		UGameViewportClient* gameViewport = PC->GetLocalPlayer()->ViewportClient;
 
-		//Check if the mouse is at the top or bottom edge of the screen and move accordingly
-		if (bCanScroll(MousePosition.Y))
-		{
-			Direction += Transform_X;
-		} 
-		else if (bCanScroll(viewportSize.Y - MousePosition.Y)) 
-		{
-			Direction += (Transform_X * -1.0f);
-		}
+		//Make sure viewport exists
+		check(gameViewport);
+		gameViewport->GetViewportSize(viewportSize);
 
-		if (Direction != FVector::ZeroVector) 
-		{
-			CalculateCameraDirection(Direction * CameraMouseSpeedModifier, 1.0f);
+		//Make sure the viewport has focus(contains the mouse)
+		FVector2D MousePosition = FVector2D::ZeroVector;
+		if (gameViewport->IsFocused(gameViewport->Viewport) && gameViewport->GetMousePosition(MousePosition)) {
+			FVector Direction = FVector::ZeroVector;
+			//Check if the mouse is at the left or right edge of the screen and move accordingly
+			if (bCanScroll(MousePosition.X)) {
+				Direction += (Transform_Y * -1.0f);
+			} else if (bCanScroll(viewportSize.X - MousePosition.X)) {
+				Direction += (Transform_Y);
+			}
+
+			//Check if the mouse is at the top or bottom edge of the screen and move accordingly
+			if (bCanScroll(MousePosition.Y)) {
+				Direction += Transform_X;
+			} else if (bCanScroll(viewportSize.Y - MousePosition.Y)) {
+				Direction += (Transform_X * -1.0f);
+			}
+
+			if (Direction != FVector::ZeroVector) {
+				CalculateCameraDirection(Direction * CameraMouseSpeedModifier, 1.0f);
+			}
 		}
 	}
 }

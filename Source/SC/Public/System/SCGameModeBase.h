@@ -7,6 +7,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "SCGameModeBase.generated.h"
 
+class APlayerStart;
 /**
  * 
  */
@@ -20,9 +21,10 @@ public:
 
 	virtual void BeginPlay() override;
 	
-	void InitCameraBoundsVolume(UWorld* World);
-	void GenerateStartBuildings(UWorld* World);
+	/** Override login */
+	virtual void PostLogin(APlayerController* NewPlayer) override;
 
+	virtual AActor* ChoosePlayerStart_Implementation(AController* Player) override;
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | Bounds")
@@ -30,4 +32,23 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | Bounds")
 	TMap<ERace, TSubclassOf<class ASCBuilding>> RaceMap;
+
+	bool newRace;
+
+private:
+	TArray<APlayerStart*> OccupiedSpawns;
+	TArray<FLinearColor> PlayerColors;
+
+	/** Sets the Game Bounds */
+	void InitCameraBoundsVolume();
+
+	/** Spawns the Starting building for the given player
+		based on it's race. */
+	void GenerateStartBuildings(APlayerController* NewPlayer, bool Race);
+
+	/** Assign team's/player's colors */
+	void SetPlayerColor(APlayerController* Player);
+
+	/** Helper Function */
+	APlayerStart* ChooseRandomSpawn(TArray<APlayerStart*> StartList);
 };

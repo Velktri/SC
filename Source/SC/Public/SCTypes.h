@@ -2,8 +2,22 @@
 #include "SCTypes.generated.h"
 
 UENUM(BlueprintType)
-enum class ERace : uint8 {
+enum class ERace : uint8
+{
 	None		UMETA(DisplayName = "None"),
+	Random		UMETA(DIsplayName = "Random"),
 	Human		UMETA(DisplayName = "Human"),
 	Goblin		UMETA(DisplayName = "Goblin"),
+};
+
+UENUM(BlueprintType)
+enum class ETeamColor : uint8 
+{
+	None		UMETA(DisplayName = "None"),
+	Red			UMETA(DisplayName = "Red"),
+	Green		UMETA(DisplayName = "Green"),
+	Blue		UMETA(DisplayName = "Blue"),
+	Teal		UMETA(DisplayName = "Teal"),
+	White		UMETA(DisplayName = "White"),
+	Orange		UMETA(DisplayName = "Orange"),
 };

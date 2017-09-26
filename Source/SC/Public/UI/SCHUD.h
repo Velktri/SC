@@ -25,5 +25,13 @@ class SC_API ASCHUD : public AHUD
 
 public:
 	TSharedPtr<class SSCGameHUD> GetGameHUD();
+	FVector2D MouseAnchor;
+	void QuerySelection();
+	FVector2D CurrentMouseLocation;
+	virtual void DrawHUD() override;
 
+private:
+	bool bQuery;
+
+	void DrawSelectionBox();
 };
