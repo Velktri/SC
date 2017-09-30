@@ -3,6 +3,7 @@
 #include "SCHUD.h"
 #include "Widgets/SSCGameHUD.h"
 #include "SCPlayerController.h"
+#include "SCSelectable.h"
 #include "Engine.h"
 
 ASCHUD::ASCHUD()
@@ -48,8 +49,8 @@ void ASCHUD::DrawHUD()
 			DrawSelectionBox();
 			if (bQuery)
 			{
-				TArray<AActor*> SelectedActors;
-				GetActorsInSelectionRectangle<AActor>(MouseAnchor, CurrentMouseLocation, SelectedActors, true, false);
+				TArray<ASCSelectable*> SelectedActors;
+				GetActorsInSelectionRectangle<ASCSelectable>(MouseAnchor, CurrentMouseLocation, SelectedActors, true, false);
 				PC->FilterSelection(SelectedActors);
 				bQuery = false;
 			}

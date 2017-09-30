@@ -2,8 +2,10 @@
 
 #include "SCPlayerController.h"
 #include "RTS_PlayerView.h"
-#include "SCBuilding.h"
 #include "SCHUD.h"
+#include "SCSelectable.h"
+#include "SCAIController.h"
+
 #include "Engine.h"
 #include "Engine/GameViewportClient.h"
 
@@ -40,15 +42,32 @@ FVector2D ASCPlayerController::GetClickAnchor()
 	return ClickedMousePosition;
 }
 
-void ASCPlayerController::FilterSelection(TArray<AActor*> UnfilteredActors)
+void ASCPlayerController::FilterSelection(TArray<ASCSelectable*> UnfilteredActors)
 {
 	// @TODO
 	bIsClicked = false;
-	for (AActor* actor : UnfilteredActors)
+	for (ASCSelectable* actor : UnfilteredActors)
 	{
-		if (actor->IsA(ASCBuilding::StaticClass()))
+		/*
+			if (unit and friendly)
+				add to unit selection
+			else if (building and friendly)
+				add to to building selection
+			else if (unit and bad)
+				add to bad var
+			else if (building and bad)
+				add to bad var
+
+			set units to selected array
+				if units empty
+					set building
+						etc....
+		*/
+
+
+		if (actor->IsA(ASCSelectable::StaticClass()))
 		{
-			ASCBuilding* building = Cast<ASCBuilding>(actor);
+			ASCSelectable* building = Cast<ASCSelectable>(actor);
 			UE_LOG(LogTemp, Warning, TEXT("Found a building actor: %s"), *building->GetName());
 		}
 	}
@@ -63,6 +82,15 @@ void ASCPlayerController::BeginPlay()
 	inputType.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
 	inputType.SetHideCursorDuringCapture(false);
 	SetInputMode(inputType);
+
+	if (GetWorld())
+	{
+		NavController = GetWorld()->SpawnActor<ASCAIController>(ASCAIController::StaticClass());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Nav Controller for Player \"%s\" failed to spawn."), *this->GetName());
+	}
 }
 
 void ASCPlayerController::SetupInputComponent()
@@ -77,7 +105,7 @@ void ASCPlayerController::SetupInputComponent()
 
 void ASCPlayerController::StartBoxSelection()
 {
-	FVector2D MousePosition;
+	FVector2D MousePosition = FVector2D::ZeroVector;
 	if (!ClickedUI() && GetMousePosition(MousePosition.X, MousePosition.Y))
 	{
 		ClickedMousePosition = MousePosition;
@@ -87,25 +115,13 @@ void ASCPlayerController::StartBoxSelection()
 
 void ASCPlayerController::StopBoxSelection()
 {
-	/*	@TODO:
-		Get mouse position
-		get all actors in selection
-		filter actors based on what was found
-	*/
-
-	if (GetLocalPlayer() && GetLocalPlayer()->ViewportClient)
+	FVector2D MousePosition = FVector2D::ZeroVector;
+	if (GetMousePosition(MousePosition.X, MousePosition.Y))
 	{
-		UGameViewportClient* GameViewport = GetLocalPlayer()->ViewportClient;
-		FVector2D MousePosition = FVector2D(0, 0);
-
-		check(GameViewport);
-		if (GameViewport->IsFocused(GameViewport->Viewport) && GameViewport->GetMousePosition(MousePosition))
+		ASCHUD* HUD = Cast<ASCHUD>(GetHUD());
+		if (HUD)
 		{
-			ASCHUD* HUD = Cast<ASCHUD>(GetHUD());
-			if (HUD)
-			{
-				HUD->QuerySelection();
-			}
+			HUD->QuerySelection();
 		}
 	}
 }

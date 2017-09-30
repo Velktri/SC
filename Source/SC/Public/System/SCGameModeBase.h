@@ -31,7 +31,7 @@ protected:
 	class AGameBoundsVolume* GameBounds;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | Bounds")
-	TMap<ERace, TSubclassOf<class ASCBuilding>> RaceMap;
+	TMap<ERace, TSubclassOf<class ASCSelectable>> RaceMap;
 
 	bool newRace;
 

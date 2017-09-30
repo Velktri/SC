@@ -4,13 +4,12 @@
 #include "SCPlayerController.h"
 #include "RTS_PlayerView.h"
 #include "RTS_GameBoundsVolume.h"
-#include "SCBuilding.h"
 #include "SCHUD.h"
 #include "SCGameStateBase.h"
 #include "SCPlayerState.h"
+#include "SCSelectable.h"
 
 #include "GameFramework/PlayerStart.h"
-
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "ConstructorHelpers.h"
@@ -93,7 +92,7 @@ void ASCGameModeBase::GenerateStartBuildings(APlayerController* NewPlayer, bool 
 					//
 
 					FActorSpawnParameters SpawnParams;
-					ASCBuilding* Building = world->SpawnActor<ASCBuilding>(RaceMap[Cast<ASCPlayerState>(PlayerController->PlayerState)->GetRace()], StartLocation, FRotator(0), SpawnParams);
+					ASCSelectable* Building = world->SpawnActor<ASCSelectable>(RaceMap[Cast<ASCPlayerState>(PlayerController->PlayerState)->GetRace()], StartLocation, FRotator(0), SpawnParams);
 					if (Building)
 					{
 						Building->SetPlayerController(PlayerController);

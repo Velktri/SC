@@ -34,7 +34,7 @@ public:
 	FVector2D GetClickAnchor();
 
 	UFUNCTION()
-	void FilterSelection(TArray<AActor*> UnfilteredActors);
+	void FilterSelection(TArray<ASCSelectable*> UnfilteredActors);
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | Bounds")
@@ -44,6 +44,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Selection")
 	TArray<AActor*> CurrentSelection;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | System")
+	class ASCAIController* NavController;
 
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
