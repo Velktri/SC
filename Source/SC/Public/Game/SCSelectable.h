@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SCTypes.h"
 #include "GameFramework/Pawn.h"
 #include "SCSelectable.generated.h"
 
@@ -28,12 +29,12 @@ public:
 	virtual void OnRep_PlayerState();
 
 	/** Returns Collision Component subobject **/
-	class UBoxComponent* GetCollisionComponent() const { return CollisionComponent; }
+	class UBoxComponent* GetCollisionComponent() const { return BuildingCollision; }
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void SetPlayerState(class ASCPlayerState* InPlayerState);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void SetPlayerController(class ASCPlayerController* InPlayerController);
 
 	UFUNCTION()
@@ -43,6 +44,9 @@ public:
 	void SetTeamColor();
 
 	class UBehaviorTree* GetBotBehavior();
+
+	UFUNCTION()
+	ESelectionType GetType();
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
@@ -60,7 +64,7 @@ protected:
 
 	/** Building collision component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Selectable")
-	class UBoxComponent* CollisionComponent;
+	class UBoxComponent* BuildingCollision;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Selectable")
 	USkeletalMeshComponent* Mesh;
@@ -80,4 +84,8 @@ protected:
 	/** Unit's AI movement class */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "System")
 	class UBehaviorTree* BotBehavior;
+
+	/** Selection Type */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Gameplay")
+	ESelectionType Type;
 };

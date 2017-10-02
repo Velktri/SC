@@ -44,34 +44,47 @@ FVector2D ASCPlayerController::GetClickAnchor()
 
 void ASCPlayerController::FilterSelection(TArray<ASCSelectable*> UnfilteredActors)
 {
-	// @TODO
+	CurrentSelection.Empty();
 	bIsClicked = false;
+	TMap<ESelectionType, TArray<ASCSelectable*>> FilteredActors;
+	ASCSelectable* EnemySelection = NULL;
 	for (ASCSelectable* actor : UnfilteredActors)
 	{
-		/*
-			if (unit and friendly)
-				add to unit selection
-			else if (building and friendly)
-				add to to building selection
-			else if (unit and bad)
-				add to bad var
-			else if (building and bad)
-				add to bad var
-
-			set units to selected array
-				if units empty
-					set building
-						etc....
-		*/
-
-
-		if (actor->IsA(ASCSelectable::StaticClass()))
+		if (actor->GetOwningController())
 		{
-			ASCSelectable* building = Cast<ASCSelectable>(actor);
-			UE_LOG(LogTemp, Warning, TEXT("Found a building actor: %s"), *building->GetName());
+			AddFilter(FilteredActors, actor->GetType(), actor);
+		} 
+		else
+		{
+			if (!EnemySelection) { EnemySelection = actor; }
 		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Scanned %d Actors."), UnfilteredActors.Num());
+
+	if (FilteredActors.Contains(ESelectionType::Unit))
+	{
+		CurrentSelection = FilteredActors[ESelectionType::Unit];
+	}
+	else if (FilteredActors.Contains(ESelectionType::Building))
+	{
+		CurrentSelection = FilteredActors[ESelectionType::Building];
+	}
+	else if (EnemySelection)
+	{
+		CurrentSelection.Add(EnemySelection);
+	}
+}
+
+void ASCPlayerController::AddFilter(TMap<ESelectionType, TArray<ASCSelectable*>>& Filter, ESelectionType type, ASCSelectable* actor)
+{
+	if (Filter.Contains(type))
+	{
+		(*Filter.Find(type)).Add(actor);
+	}
+	else
+	{
+		TArray<ASCSelectable*> array = { actor };
+		Filter.Emplace(type, array);
+	}
 }
 
 void ASCPlayerController::BeginPlay()

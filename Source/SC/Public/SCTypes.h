@@ -21,3 +21,12 @@ enum class ETeamColor : uint8
 	White		UMETA(DisplayName = "White"),
 	Orange		UMETA(DisplayName = "Orange"),
 };
+
+UENUM(BlueprintType)
+enum class ESelectionType : uint8
+{
+	None			UMETA(DisplayName = "None"),
+	UnSelectable	UMETA(DisplayName = "UnSelectable"),
+	Unit			UMETA(DisplayName = "Unit"),
+	Building		UMETA(DisplayName = "Building"),
+};

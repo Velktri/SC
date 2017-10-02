@@ -42,7 +42,7 @@ protected:
 
 	/** List of Current Selection */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SC | Selection")
-	TArray<AActor*> CurrentSelection;
+	TArray<ASCSelectable*> CurrentSelection;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SC | System")
 	class ASCAIController* NavController;
@@ -58,4 +58,5 @@ private:
 	FVector2D ClickedMousePosition;
 	bool bIsClicked;
 	bool ClickedUI();
+	void AddFilter(TMap<ESelectionType, TArray<ASCSelectable*>>& Filter, ESelectionType type, ASCSelectable* actor);
 };

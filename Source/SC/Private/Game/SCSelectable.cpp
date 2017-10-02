@@ -18,10 +18,10 @@ ASCSelectable::ASCSelectable()
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
-	CollisionComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Building Collision Component"));
-	if (CollisionComponent)
+	BuildingCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Building Collision Component"));
+	if (BuildingCollision)
 	{
-		CollisionComponent->SetupAttachment(RootComponent);
+		BuildingCollision->SetupAttachment(RootComponent);
 	}
 
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SelectableMesh0"));
@@ -32,6 +32,7 @@ ASCSelectable::ASCSelectable()
 	}
 
 	bReplicates = true;
+	Type = ESelectionType::None;
 }
 
 // Called when the game starts or when spawned
@@ -109,4 +110,9 @@ void ASCSelectable::SetTeamColor()
 UBehaviorTree* ASCSelectable::GetBotBehavior()
 {
 	return BotBehavior;
+}
+
+ESelectionType ASCSelectable::GetType()
+{
+	return Type;
 }
