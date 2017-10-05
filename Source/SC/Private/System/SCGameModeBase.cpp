@@ -83,7 +83,7 @@ void ASCGameModeBase::GenerateStartBuildings(APlayerController* NewPlayer, bool 
 				EndLocation.Z = -10000;
 
 				FHitResult Hit(ForceInit);
-				if (world->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility))
+				if (world->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, COLLISION_GROUND))
 				{
 					StartLocation = Hit.Location;
 

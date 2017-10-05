@@ -30,3 +30,6 @@ enum class ESelectionType : uint8
 	Unit			UMETA(DisplayName = "Unit"),
 	Building		UMETA(DisplayName = "Building"),
 };
+
+#define COLLISION_GROUND			ECC_GameTraceChannel1
+#define COLLISION_SELECTABLE		ECC_GameTraceChannel2

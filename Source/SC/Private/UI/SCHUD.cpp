@@ -41,10 +41,10 @@ void ASCHUD::DrawHUD()
 	ASCPlayerController* PC = Cast<ASCPlayerController>(GetOwningPlayerController());
 	if (PC)
 	{
-		PC->GetMousePosition(CurrentMouseLocation.X, CurrentMouseLocation.Y);
 		/* Draws the selection box */
 		if (PC->IsClicked())
 		{
+			PC->GetMousePosition(CurrentMouseLocation.X, CurrentMouseLocation.Y);
 			MouseAnchor = PC->GetClickAnchor();
 			DrawSelectionBox();
 			if (bQuery)

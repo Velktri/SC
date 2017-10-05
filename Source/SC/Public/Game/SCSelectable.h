@@ -48,6 +48,9 @@ public:
 	UFUNCTION()
 	ESelectionType GetType();
 
+	UFUNCTION()
+	void Move(FVector MoveLocation, ASCAIController* NavController);
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
 	FString Name;
@@ -65,6 +68,10 @@ protected:
 	/** Building collision component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Selectable")
 	class UBoxComponent* BuildingCollision;
+
+	/** Building collision component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Selectable")
+	class UCapsuleComponent* UnitCollision;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Selectable")
 	USkeletalMeshComponent* Mesh;
@@ -88,4 +95,7 @@ protected:
 	/** Selection Type */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Gameplay")
 	ESelectionType Type;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
+	class USCSelectableMovement* UnitMovement;
 };

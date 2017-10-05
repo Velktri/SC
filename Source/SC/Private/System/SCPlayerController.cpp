@@ -143,11 +143,19 @@ void ASCPlayerController::RightClick()
 {
 	if (!ClickedUI())
 	{
-		/*
-			@TODO:
-			Get click point
-			send the point to the AI controller
-		*/
+		FHitResult Hit;
+		if (GetHitResultUnderCursor(COLLISION_GROUND, false, Hit))
+		{
+			UE_LOG(LogTemp, Error, TEXT("Right Click Hit Result X: %f."), Hit.Location.X);
+			UE_LOG(LogTemp, Error, TEXT("Right Click Hit Result Y: %f."), Hit.Location.Y);
+			UE_LOG(LogTemp, Error, TEXT("Right Click Hit Result Z: %f."), Hit.Location.Z);
+			// @TODO deal with attempting to move in the future, probably inside the AI controller or behavior tree
+			for (ASCSelectable* unit : CurrentSelection)
+			{
+				unit->Move(Hit.Location, NavController);
+			}
+			//NavController->Move(Hit.Location);
+		}
 	}
 }
 

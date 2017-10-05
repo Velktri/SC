@@ -11,6 +11,8 @@ AGameBoundsVolume::AGameBoundsVolume()
 {
 	BrushColor = FColor::Green;
 	WallSize = 1000;
+
+	GetBrushComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AGameBoundsVolume::BeginPlay() 
