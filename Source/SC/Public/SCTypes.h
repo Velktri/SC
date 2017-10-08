@@ -1,4 +1,5 @@
 #pragma once
+#include "Engine/DataTable.h"
 #include "SCTypes.generated.h"
 
 UENUM(BlueprintType)
@@ -29,6 +30,20 @@ enum class ESelectionType : uint8
 	UnSelectable	UMETA(DisplayName = "UnSelectable"),
 	Unit			UMETA(DisplayName = "Unit"),
 	Building		UMETA(DisplayName = "Building"),
+};
+
+USTRUCT(Blueprintable)
+struct FSelectableLookupTable : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly)
+	int32 Health;
+
+	FSelectableLookupTable()
+	: Health(0)
+	{ }
 };
 
 #define COLLISION_GROUND			ECC_GameTraceChannel1

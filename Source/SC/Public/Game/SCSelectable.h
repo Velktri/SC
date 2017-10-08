@@ -51,6 +51,9 @@ public:
 	UFUNCTION()
 	void Move(FVector MoveLocation, ASCAIController* NavController);
 
+	UFUNCTION()
+	void SetData();
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
 	FString Name;
@@ -64,6 +67,14 @@ protected:
 	/** List of units or buildings the actor can create. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
 	TArray<TSubclassOf<ASCSelectable>> BuildableActors;
+
+	/** Action Buttons */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Gameplay")
+	TArray<AActor*> ActionCommands;
+
+	/** Selection Type */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Gameplay")
+	ESelectionType Type;
 
 	/** Building collision component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Selectable")
@@ -92,10 +103,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "System")
 	class UBehaviorTree* BotBehavior;
 
-	/** Selection Type */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Gameplay")
-	ESelectionType Type;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
 	class USCSelectableMovement* UnitMovement;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Data")
+	UDataTable* SelectableDataTable;
 };

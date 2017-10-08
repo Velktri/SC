@@ -12,6 +12,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
+#include "Engine/DataTable.h"
 
 // Sets default values
 ASCSelectable::ASCSelectable()
@@ -91,6 +92,7 @@ ASCSelectable::ASCSelectable()
 void ASCSelectable::BeginPlay()
 {
 	Super::BeginPlay();
+	SetData();
 
 	if (Type == ESelectionType::Building) { BuildingCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics); }
 }
@@ -184,5 +186,19 @@ void ASCSelectable::Move(FVector MoveLocation, ASCAIController* NavController)
 	if (GetController() && GetController()->IsA(ASCAIController::StaticClass()))
 	{
 		Cast<ASCAIController>(GetController())->Move(MoveLocation);
+	}
+}
+
+void ASCSelectable::SetData()
+{
+	if (SelectableDataTable)
+	{
+		FName name2 = GetClass()->GetFName();
+		FSelectableLookupTable* LookUpRow = SelectableDataTable->FindRow<FSelectableLookupTable>(name2, "GENERAL");
+		if (LookUpRow)
+		{
+			Health = LookUpRow->Health;
+			//Name = this->GetClass()->GetName();
+		}
 	}
 }
