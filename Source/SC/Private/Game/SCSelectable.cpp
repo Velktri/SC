@@ -197,8 +197,11 @@ void ASCSelectable::SetData()
 		FSelectableLookupTable* LookUpRow = SelectableDataTable->FindRow<FSelectableLookupTable>(name2, "GENERAL");
 		if (LookUpRow)
 		{
+			/* Set Data */
 			Health = LookUpRow->Health;
-			//Name = this->GetClass()->GetName();
+			Name = LookUpRow->Name;
+			Cost = LookUpRow->Cost;
+			Type = LookUpRow->Type;
 		}
 	}
 }

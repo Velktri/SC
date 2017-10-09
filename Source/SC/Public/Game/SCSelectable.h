@@ -56,7 +56,7 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
-	FString Name;
+	FName Name;
 
 	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
 	int32 Health;

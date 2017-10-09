@@ -41,8 +41,20 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	int32 Health;
 
+	UPROPERTY(BlueprintReadOnly)
+	FName Name;
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 Cost;
+
+	UPROPERTY(BlueprintReadOnly)
+	ESelectionType Type;
+
 	FSelectableLookupTable()
-	: Health(0)
+	: Health(0),
+	  Name(""),
+	  Cost(0),
+	  Type(ESelectionType::None)
 	{ }
 };
 
