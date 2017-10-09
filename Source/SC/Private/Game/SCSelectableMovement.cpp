@@ -15,7 +15,7 @@ USCSelectableMovement::USCSelectableMovement()
 	Acceleration = 4000.f;
 	Deceleration = 8000.f;
 	TurningBoost = 8.0f;
-	Gravity = 20000.0f;
+	Gravity = 100000.0f;
 	GravityScale = 1.f;
 	MaxStepHeight = 45.0f;
 

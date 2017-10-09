@@ -24,6 +24,10 @@ struct FSCGameHUDStyle : public FSlateWidgetStyle
 	static const FName TypeName;
 	virtual const FName GetTypeName() const override { return TypeName; };
 	static const FSCGameHUDStyle& GetDefault();
+
+	/** The actual data describing the widget appearance. */
+	UPROPERTY(Category = Appearance, EditAnywhere)
+	FSlateBrush OverlayHUD;
 };
 
 /**
@@ -37,10 +41,6 @@ public:
 	/** The actual data describing the widget appearance. */
 	UPROPERTY(Category=Appearance, EditAnywhere, meta=(ShowOnlyInnerProperties))
 	FSCGameHUDStyle WidgetStyle;
-
-	///** The actual data describing the widget appearance. */
-	//UPROPERTY(Category = Appearance, EditAnywhere, meta = (ShowOnlyInnerProperties))
-	//FSlateBrush OverlayHUD;
 
 	virtual const struct FSlateWidgetStyle* const GetStyle() const override
 	{

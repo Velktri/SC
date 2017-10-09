@@ -204,4 +204,8 @@ void ASCSelectable::SetData()
 			Type = LookUpRow->Type;
 		}
 	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Error: Could not find Data Table for %s"), *GetName())
+	}
 }

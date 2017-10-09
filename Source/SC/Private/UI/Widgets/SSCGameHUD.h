@@ -23,4 +23,6 @@ public:
 	TWeakObjectPtr<class ASCHUD> SCHUD;
 	TSharedPtr<class SSCActionComands> ActionCommandGrid;
 	TSharedPtr<class SSCGameTopbar> TopBarHUD;
+
+	//const struct FSCGameHUDStyle& HUDStyle;
 };

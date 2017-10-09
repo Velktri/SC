@@ -5,12 +5,14 @@
 #include "SlateOptMacros.h"
 #include "SSCActionComands.h"
 #include "SSCGameTopbar.h"
+#include "SCStyleSet.h"
+#include "SCGameHUDWidgetStyle.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SSCGameHUD::Construct(const FArguments& InArgs)
 {
 	SCHUD = InArgs._SCHUD;
-	//MenuStyle = &FMenuStyles::Get().GetWidgetStyle<FGlobalStyle>("Global");
+	const FSCGameHUDStyle* HUDStyle = FSCStyleSet::GetDefaultTheme();
 
 	ChildSlot
 	[
@@ -47,7 +49,7 @@ void SSCGameHUD::Construct(const FArguments& InArgs)
 		.VAlign(VAlign_Bottom)
 		[
 			SNew(SImage)
-			//.Image(this, &FSCGameHUDStyle::OverlayHUD)
+			.Image(&HUDStyle->OverlayHUD)
 		]
 	];
 }

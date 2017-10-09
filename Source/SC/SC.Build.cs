@@ -11,6 +11,7 @@ public class SC : ModuleRules
         PrivateIncludePaths.AddRange(
             new string[] {
                 "SC/Private/UI/Widgets",
+                "SC/Private/UI/Styles"
             }
         );
 
