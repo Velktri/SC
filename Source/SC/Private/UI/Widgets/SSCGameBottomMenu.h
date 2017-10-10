@@ -3,26 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SlateBasics.h"
 #include "Widgets/SCompoundWidget.h"
 
 /**
  * 
  */
-class SSCActionComands : public SCompoundWidget
+class SSCGameBottomMenu : public SCompoundWidget
 {
 public:
-	SLATE_BEGIN_ARGS(SSCActionComands)
+	SLATE_BEGIN_ARGS(SSCGameBottomMenu)
 	{}
 	SLATE_END_ARGS()
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 
-	TSharedPtr<SUniformGridPanel> ActionGrid;
-	int32 Rows = 3;
-	int32 Columns = 5;
-
-
-	FReply ButtonClick(int32 ColumnIndex, int32 RowIndex);
+	TSharedPtr<class SSCGameMinimap> Minimap;
+	TSharedPtr<class SSCGameSelectionSet> Selections;
+	TSharedPtr<class SSCActionComands> ActionGrid;
 };

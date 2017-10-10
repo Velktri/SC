@@ -3,7 +3,7 @@
 #include "SSCGameHUD.h"
 #include "SCHUD.h"
 #include "SlateOptMacros.h"
-#include "SSCActionComands.h"
+#include "SSCGameBottomMenu.h"
 #include "SSCGameTopbar.h"
 #include "SCStyleSet.h"
 #include "SCGameHUDWidgetStyle.h"
@@ -18,9 +18,14 @@ void SSCGameHUD::Construct(const FArguments& InArgs)
 	[
 		SNew(SOverlay)
 		+ SOverlay::Slot()
+		.HAlign(HAlign_Fill)
+		.VAlign(VAlign_Fill)
 		[
+			/* Top Menu */
 			SNew(SVerticalBox)
 			+SVerticalBox::Slot()
+			.HAlign(HAlign_Fill)
+			.VAlign(VAlign_Top)
 			[
 				SNew(SHorizontalBox)
 				+ SHorizontalBox::Slot()
@@ -30,27 +35,33 @@ void SSCGameHUD::Construct(const FArguments& InArgs)
 					SAssignNew(TopBarHUD, SSCGameTopbar)
 				]
 			]
-
+			
+			/* Bottom Menu */
 			+ SVerticalBox::Slot()
+			.HAlign(HAlign_Fill)
+			.VAlign(VAlign_Bottom)
 			[
-				SNew(SHorizontalBox)
-
-				+ SHorizontalBox::Slot()
-				.HAlign(HAlign_Fill)
-				.VAlign(VAlign_Bottom)
-				[
-					SAssignNew(ActionCommandGrid, SSCActionComands)
-				]
+				SAssignNew(BottomMenu, SSCGameBottomMenu)
+				//SNew(SHorizontalBox)
+				//+ SHorizontalBox::Slot()
+				//.HAlign(HAlign_Fill)
+				//.VAlign(VAlign_Bottom)
+				//[
+				//	SAssignNew(ActionCommandGrid, SSCActionComands)
+				//]
 			]
 		]
-
+		
+		/* Background Overlay */
 		+ SOverlay::Slot()
 		.HAlign(HAlign_Fill)
 		.VAlign(VAlign_Bottom)
 		[
-			SNew(SImage)
-			.Image(&HUDStyle->OverlayHUD)
+			SAssignNew(GameOverlay, SImage)
+			.Image(&HUDStyle->OverlayHUD) 
 		]
 	];
+
+	GameOverlay->SetVisibility(EVisibility::HitTestInvisible);
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

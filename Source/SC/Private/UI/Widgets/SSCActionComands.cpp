@@ -7,14 +7,27 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SSCActionComands::Construct(const FArguments& InArgs)
 {
 	ChildSlot
-	.Padding(FMargin(0, 0, 50, 50))
-	.HAlign(HAlign_Right)
-	.VAlign(VAlign_Bottom)
 	[
-		SAssignNew(ActionGrid, SUniformGridPanel)
-		.SlotPadding(2)
-		.MinDesiredSlotHeight(100)
-		.MinDesiredSlotWidth(100)
+		SNew(SVerticalBox)
+		//+SVerticalBox::Slot()
+		//[
+		//	SNew(SHorizontalBox)
+		//	+SHorizontalBox::Slot()
+		//	[
+
+		//	]
+		//]
+
+		+SVerticalBox::Slot()
+		.Padding(FMargin(0, 0, 50, 50))
+		.HAlign(HAlign_Right)
+		.VAlign(VAlign_Bottom)
+		[
+			SAssignNew(ActionGrid, SUniformGridPanel)
+			.SlotPadding(2)
+			.MinDesiredSlotHeight(100)
+			.MinDesiredSlotWidth(100)
+		]
 	];
 
 	int k = 0;
