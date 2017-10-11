@@ -11,6 +11,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/DecalComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "Engine/DataTable.h"
 
@@ -73,6 +74,16 @@ ASCSelectable::ASCSelectable()
 		Mesh->CastShadow = true;
 		Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		Mesh->SetupAttachment(RootComponent);
+	}
+
+	SelectionDecal = CreateDefaultSubobject<UDecalComponent>(TEXT("Selection Decal"));
+	if (SelectionDecal)
+	{
+		SelectionDecal->AttachTo(Mesh);
+		SelectionDecal->AddLocalRotation(FRotator(-90, 0, 0));
+		SelectionDecal->DecalSize = FVector(400, 400, 400);
+		SelectionDecal->RelativeScale3D = FVector(1, 1, 1);
+		SelectionDecal->SetHiddenInGame(true);
 	}
 
 	UnitMovement = CreateDefaultSubobject<USCSelectableMovement>(TEXT("Selection Movement"));

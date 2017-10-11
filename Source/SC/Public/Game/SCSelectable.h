@@ -91,6 +91,9 @@ protected:
 	UMaterialInstanceDynamic* TeamColorMID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Materials")
+	UDecalComponent* SelectionDecal;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Materials")
 	class UTexture* SelectionPortrait;
 
 	UPROPERTY(replicatedUsing = OnRep_PlayerState, VisibleAnywhere, BlueprintReadOnly, Category = "System")
