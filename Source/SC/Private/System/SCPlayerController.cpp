@@ -44,7 +44,9 @@ FVector2D ASCPlayerController::GetClickAnchor()
 
 void ASCPlayerController::FilterSelection(TArray<ASCSelectable*> UnfilteredActors)
 {
+	for (ASCSelectable* selection : CurrentSelection) { selection->ToggleSelection(); }
 	CurrentSelection.Empty();
+
 	bIsClicked = false;
 	TMap<ESelectionType, TArray<ASCSelectable*>> FilteredActors;
 	ASCSelectable* EnemySelection = NULL;
@@ -71,6 +73,10 @@ void ASCPlayerController::FilterSelection(TArray<ASCSelectable*> UnfilteredActor
 	else if (EnemySelection)
 	{
 		CurrentSelection.Add(EnemySelection);
+	}
+
+	for (ASCSelectable* selection : CurrentSelection) { 
+		selection->ToggleSelection(); 
 	}
 }
 

@@ -54,6 +54,9 @@ public:
 	UFUNCTION()
 	void SetData();
 
+	UFUNCTION()
+	void ToggleSelection();
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
 	FName Name;
@@ -90,7 +93,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Materials")
 	UMaterialInstanceDynamic* TeamColorMID;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Materials")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Materials")
 	UDecalComponent* SelectionDecal;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Materials")
@@ -111,4 +114,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Data")
 	UDataTable* SelectableDataTable;
+
+	bool bIsSelected;
 };

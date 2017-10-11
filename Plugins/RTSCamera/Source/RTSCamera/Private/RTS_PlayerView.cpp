@@ -47,7 +47,7 @@ APlayerView::APlayerView()
 	CollisionComponent->SetCanEverAffectNavigation(false);
 	RootComponent = CollisionComponent;
 
-	CameraBoom = CreateDefaultSubobject<USphereComponent>(TEXT("Camera Boom"));
+	CameraBoom = CreateDefaultSubobject<USceneComponent>(TEXT("Camera Boom"));
 	CameraBoom->SetupAttachment(RootComponent);
 
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));

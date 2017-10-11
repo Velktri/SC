@@ -76,6 +76,7 @@ ASCSelectable::ASCSelectable()
 		Mesh->SetupAttachment(RootComponent);
 	}
 
+	bIsSelected = false;
 	SelectionDecal = CreateDefaultSubobject<UDecalComponent>(TEXT("Selection Decal"));
 	if (SelectionDecal)
 	{
@@ -83,7 +84,7 @@ ASCSelectable::ASCSelectable()
 		SelectionDecal->AddLocalRotation(FRotator(-90, 0, 0));
 		SelectionDecal->DecalSize = FVector(400, 400, 400);
 		SelectionDecal->RelativeScale3D = FVector(1, 1, 1);
-		SelectionDecal->SetHiddenInGame(true);
+		SelectionDecal->SetHiddenInGame(!bIsSelected);
 	}
 
 	UnitMovement = CreateDefaultSubobject<USCSelectableMovement>(TEXT("Selection Movement"));
@@ -218,5 +219,14 @@ void ASCSelectable::SetData()
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Error: Could not find Data Table for %s"), *GetName())
+	}
+}
+
+void ASCSelectable::ToggleSelection()
+{
+	if (SelectionDecal)
+	{
+		SelectionDecal->SetHiddenInGame(bIsSelected);
+		bIsSelected = !bIsSelected;
 	}
 }
